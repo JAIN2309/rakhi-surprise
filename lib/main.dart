@@ -16,7 +16,7 @@ void main() {
   runApp(const RakhiSurpriseApp());
 }
 
-/// Root application widget — Raksha Bandhan Surprise.
+/// Root application widget — Raksha Bandhan Surprise App.
 class RakhiSurpriseApp extends StatelessWidget {
   const RakhiSurpriseApp({super.key});
 
