@@ -56,6 +56,9 @@ class _SceneGreetingState extends State<SceneGreeting> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final titleFontSize = screenWidth > 600 ? 42.0 : 32.0;
+
     return Container(
       decoration: const BoxDecoration(
         gradient: LinearGradient(
@@ -70,60 +73,63 @@ class _SceneGreetingState extends State<SceneGreeting> {
       ),
       child: _activated
           ? Center(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 32),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    // ── Main greeting ──────────────────────────────
-                    Text(
-                      'Yay! So nice to\ncelebrate with you,\n${widget.sisterName}! 🎉',
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.poppins(
-                        fontSize: 34,
-                        fontWeight: FontWeight.w800,
-                        color: Colors.white,
-                        height: 1.3,
-                      ),
-                    )
-                        .animate()
-                        .fade(duration: 400.ms)
-                        .slideY(
-                          begin: 0.3,
-                          end: 0,
-                          duration: 1200.ms,
-                          curve: Curves.elasticOut,
-                        )
-                        .scale(
-                          begin: const Offset(0.5, 0.5),
-                          end: const Offset(1.0, 1.0),
-                          duration: 1200.ms,
-                          curve: Curves.elasticOut,
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 700),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      // ── Main greeting ──────────────────────────────
+                      Text(
+                        'Yay! So nice to\ncelebrate with you,\n${widget.sisterName}! 🎉',
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.poppins(
+                          fontSize: titleFontSize,
+                          fontWeight: FontWeight.w800,
+                          color: Colors.white,
+                          height: 1.3,
                         ),
+                      )
+                          .animate()
+                          .fade(duration: 400.ms)
+                          .slideY(
+                            begin: 0.3,
+                            end: 0,
+                            duration: 1200.ms,
+                            curve: Curves.elasticOut,
+                          )
+                          .scale(
+                            begin: const Offset(0.5, 0.5),
+                            end: const Offset(1.0, 1.0),
+                            duration: 1200.ms,
+                            curve: Curves.elasticOut,
+                          ),
 
-                    const SizedBox(height: 28),
+                      const SizedBox(height: 28),
 
-                    // ── Caring subtitle ───────────────────────────
-                    Text(
-                      'You make every day brighter\njust by being you ✨',
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.dancingScript(
-                        fontSize: 22,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white.withAlpha(220),
-                        height: 1.4,
-                      ),
-                    )
-                        .animate()
-                        .fade(duration: 800.ms, delay: 1000.ms)
-                        .slideY(
-                          begin: 0.2,
-                          end: 0,
-                          duration: 800.ms,
-                          delay: 1000.ms,
-                          curve: Curves.easeOut,
+                      // ── Caring subtitle ───────────────────────────
+                      Text(
+                        'You make every day brighter\njust by being you ✨',
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.dancingScript(
+                          fontSize: 24,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white.withAlpha(220),
+                          height: 1.4,
                         ),
-                  ],
+                      )
+                          .animate()
+                          .fade(duration: 800.ms, delay: 1000.ms)
+                          .slideY(
+                            begin: 0.2,
+                            end: 0,
+                            duration: 800.ms,
+                            delay: 1000.ms,
+                            curve: Curves.easeOut,
+                          ),
+                    ],
+                  ),
                 ),
               ),
             )

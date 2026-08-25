@@ -4,8 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 
 /// Scene 1 — The Hook (Mini Splash).
 ///
-/// Deep magenta → royal blue radial gradient. The greeting text fades and
-/// scales up slowly, then auto-advances to Scene 2 after 3 seconds.
+/// Deep magenta → royal blue radial gradient. Fully responsive text layout.
+/// Auto-advances to Scene 2 after 3 seconds.
 class SceneSplash extends StatefulWidget {
   final VoidCallback onComplete;
 
@@ -26,6 +26,9 @@ class _SceneSplashState extends State<SceneSplash> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final fontSize = screenWidth > 600 ? 40.0 : 30.0;
+
     return Container(
       decoration: const BoxDecoration(
         gradient: RadialGradient(
@@ -40,27 +43,30 @@ class _SceneSplashState extends State<SceneSplash> {
         ),
       ),
       child: Center(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 36),
-          child: Text(
-            'Happy Raksha Bandhan\nto my caring and\ncute sister! 💖',
-            textAlign: TextAlign.center,
-            style: GoogleFonts.playfairDisplay(
-              fontSize: 32,
-              fontWeight: FontWeight.w700,
-              color: Colors.white,
-              height: 1.4,
-              letterSpacing: 0.5,
-            ),
-          )
-              .animate()
-              .fade(duration: 1200.ms, curve: Curves.easeOut)
-              .scale(
-                begin: const Offset(0.7, 0.7),
-                end: const Offset(1.0, 1.0),
-                duration: 1500.ms,
-                curve: Curves.easeOutCubic,
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 24),
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 700),
+            child: Text(
+              'Happy Raksha Bandhan\nto my caring and\ncute sister! 💖',
+              textAlign: TextAlign.center,
+              style: GoogleFonts.playfairDisplay(
+                fontSize: fontSize,
+                fontWeight: FontWeight.w700,
+                color: Colors.white,
+                height: 1.4,
+                letterSpacing: 0.5,
               ),
+            )
+                .animate()
+                .fade(duration: 1200.ms, curve: Curves.easeOut)
+                .scale(
+                  begin: const Offset(0.7, 0.7),
+                  end: const Offset(1.0, 1.0),
+                  duration: 1500.ms,
+                  curve: Curves.easeOutCubic,
+                ),
+          ),
         ),
       ),
     );

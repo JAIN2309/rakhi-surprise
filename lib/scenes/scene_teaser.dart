@@ -25,13 +25,10 @@ class SceneTeaser extends StatefulWidget {
 class _SceneTeaserState extends State<SceneTeaser> {
   bool _activated = false;
 
-  // Typewriter state
   String _displayedText = '';
   final String _fullText = 'I have a few small surprises for you...';
   int _charIndex = 0;
   Timer? _typewriterTimer;
-
-  // ── Activation lifecycle ──────────────────────────────────────────────────
 
   @override
   void initState() {
@@ -58,7 +55,6 @@ class _SceneTeaserState extends State<SceneTeaser> {
   void _activate() {
     setState(() => _activated = true);
 
-    // Start the typewriter after a brief dramatic pause
     Future.delayed(const Duration(milliseconds: 500), () {
       if (!mounted) return;
       _typewriterTimer =
@@ -70,7 +66,6 @@ class _SceneTeaserState extends State<SceneTeaser> {
           });
         } else {
           timer.cancel();
-          // Auto-advance 1 s after typewriter finishes
           Future.delayed(const Duration(seconds: 1), () {
             if (mounted) widget.onComplete();
           });
@@ -85,8 +80,6 @@ class _SceneTeaserState extends State<SceneTeaser> {
     super.dispose();
   }
 
-  // ── Build ─────────────────────────────────────────────────────────────────
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -95,9 +88,9 @@ class _SceneTeaserState extends State<SceneTeaser> {
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
-            Color(0xFF0D1B2A), // dark navy
-            Color(0xFF1B0A2E), // dark purple
-            Color(0xFF0A0A1A), // near-black
+            Color(0xFF0D1B2A),
+            Color(0xFF1B0A2E),
+            Color(0xFF0A0A1A),
           ],
         ),
       ),
@@ -107,19 +100,24 @@ class _SceneTeaserState extends State<SceneTeaser> {
 
   Widget _buildContent() {
     final bool isTyping = _charIndex < _fullText.length;
+    final screenWidth = MediaQuery.of(context).size.width;
+    final fontSize = screenWidth > 600 ? 34.0 : 24.0;
 
     return Center(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 40),
-        child: Text(
-          isTyping ? '$_displayedText▌' : _displayedText,
-          textAlign: TextAlign.center,
-          style: GoogleFonts.poppins(
-            fontSize: 26,
-            fontWeight: FontWeight.w500,
-            color: const Color(0xFFFFD54F),
-            height: 1.5,
-            letterSpacing: 0.5,
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 24),
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 700),
+          child: Text(
+            isTyping ? '$_displayedText▌' : _displayedText,
+            textAlign: TextAlign.center,
+            style: GoogleFonts.poppins(
+              fontSize: fontSize,
+              fontWeight: FontWeight.w500,
+              color: const Color(0xFFFFD54F),
+              height: 1.5,
+              letterSpacing: 0.5,
+            ),
           ),
         ),
       ),

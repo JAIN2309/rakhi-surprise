@@ -175,13 +175,16 @@ class _SceneCertificateState extends State<SceneCertificate> {
               child: SingleChildScrollView(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 28),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    _buildAnimatedCertificate(),
-                    const SizedBox(height: 28),
-                    _buildDownloadButton(),
-                  ],
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 580),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      _buildAnimatedCertificate(),
+                      const SizedBox(height: 28),
+                      _buildDownloadButton(),
+                    ],
+                  ),
                 ),
               ),
             ),

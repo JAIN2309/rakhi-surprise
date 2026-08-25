@@ -25,8 +25,6 @@ class SceneDrumroll extends StatefulWidget {
 class _SceneDrumrollState extends State<SceneDrumroll> {
   bool _activated = false;
 
-  // ── Activation lifecycle ──────────────────────────────────────────────────
-
   @override
   void initState() {
     super.initState();
@@ -56,8 +54,6 @@ class _SceneDrumrollState extends State<SceneDrumroll> {
     });
   }
 
-  // ── Build ─────────────────────────────────────────────────────────────────
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -66,8 +62,8 @@ class _SceneDrumrollState extends State<SceneDrumroll> {
           center: Alignment.center,
           radius: 1.0,
           colors: [
-            Color(0xFF1A1A2E), // dark indigo
-            Color(0xFF0A0A1A), // near-black
+            Color(0xFF1A1A2E),
+            Color(0xFF0A0A1A),
           ],
         ),
       ),
@@ -77,69 +73,72 @@ class _SceneDrumrollState extends State<SceneDrumroll> {
 
   Widget _buildContent() {
     return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          // ── Heartbeat pulsating circle ─────────────────────────
-          Container(
-            width: 120,
-            height: 120,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              gradient: const RadialGradient(
-                colors: [
-                  Color(0xFFFFD700),
-                  Color(0xFFFFA000),
-                  Color(0xFFFF6F00),
-                ],
-              ),
-              boxShadow: [
-                BoxShadow(
-                  color: const Color(0xFFFFD700).withAlpha(128),
-                  blurRadius: 40,
-                  spreadRadius: 10,
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 600),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // ── Heartbeat pulsating circle ─────────────────────────
+              Container(
+                width: 120,
+                height: 120,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  gradient: const RadialGradient(
+                    colors: [
+                      Color(0xFFFFD700),
+                      Color(0xFFFFA000),
+                      Color(0xFFFF6F00),
+                    ],
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: const Color(0xFFFFD700).withAlpha(128),
+                      blurRadius: 40,
+                      spreadRadius: 10,
+                    ),
+                  ],
                 ),
-              ],
-            ),
-            child: const Center(
-              child: Text('✨', style: TextStyle(fontSize: 50)),
-            ),
-          )
-              .animate(
-                  onPlay: (controller) => controller.repeat(reverse: true))
-              .scale(
-                begin: const Offset(0.85, 0.85),
-                end: const Offset(1.15, 1.15),
-                duration: 800.ms,
-                curve: Curves.easeInOut,
-              ),
-
-          const SizedBox(height: 48),
-
-          // ── Text ──────────────────────────────────────────────
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 32),
-            child: Text(
-              'But wait, ${widget.sisterName}…\nthere is one more thing.\nThe official award! 🏆',
-              textAlign: TextAlign.center,
-              style: GoogleFonts.poppins(
-                fontSize: 22,
-                fontWeight: FontWeight.w600,
-                color: Colors.white,
-                height: 1.5,
-              ),
-            )
-                .animate()
-                .fade(duration: 800.ms, delay: 400.ms)
-                .slideY(
-                  begin: 0.2,
-                  end: 0,
-                  duration: 800.ms,
-                  delay: 400.ms,
-                  curve: Curves.easeOut,
+                child: const Center(
+                  child: Text('✨', style: TextStyle(fontSize: 50)),
                 ),
+              )
+                  .animate(
+                      onPlay: (controller) => controller.repeat(reverse: true))
+                  .scale(
+                    begin: const Offset(0.85, 0.85),
+                    end: const Offset(1.15, 1.15),
+                    duration: 800.ms,
+                    curve: Curves.easeInOut,
+                  ),
+
+              const SizedBox(height: 48),
+
+              // ── Text ──────────────────────────────────────────────
+              Text(
+                'But wait, ${widget.sisterName}…\nthere is one more thing.\nThe official award! 🏆',
+                textAlign: TextAlign.center,
+                style: GoogleFonts.poppins(
+                  fontSize: 22,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white,
+                  height: 1.5,
+                ),
+              )
+                  .animate()
+                  .fade(duration: 800.ms, delay: 400.ms)
+                  .slideY(
+                    begin: 0.2,
+                    end: 0,
+                    duration: 800.ms,
+                    delay: 400.ms,
+                    curve: Curves.easeOut,
+                  ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
