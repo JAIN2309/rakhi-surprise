@@ -23,7 +23,7 @@ class RakhiSurpriseApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Raksha Bandhan Surprise',
+      title: '🎁 Raksha Bandhan Surprise — For My Sister 💖',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         brightness: Brightness.dark,
